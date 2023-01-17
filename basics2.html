@@ -1,0 +1,39 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script type="text/javascript">
+        function myHello(){
+            alert("Triggered myHello()")
+        }
+        function myHello(person) {
+            alert("Welcome to " + person)
+        }
+        function myHello(var1, var2) {
+            alert("Welcome to " + var1 + " " + var2)
+        }
+
+        function compareTwoNumbers(num1, num2){
+            var maximum = getMaximumValue(num1, num2)
+            console.log("The greater number is " + maximum)
+        }
+
+        function getMaximumValue(var1, var2){
+            if (var1 >= var2) return var1
+            else return var2
+        }
+
+        compareTwoNumbers(535.48, 4)
+
+    </script>
+</head>
+<body>
+    Basics 2 example
+    <br>
+    <a href="" onclick="myHello('me', 'myself'); return false;">Welcome me</a>
+    <a href="" onclick="compareTwoNumbers(1, 5); return false;">Compare me</a>
+    <br>
+</body>
+</html>

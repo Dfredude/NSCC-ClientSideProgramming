@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        h1 {
+            width: 700px;
+            border: thick double blue;
+            margin: 20px auto;
+            text-align: center;
+        }
+
+        img {
+            width: 200px;
+            height: 200px;
+        }
+
+        .drow {
+            display: flex;
+            flex-direction: row;
+            margin: auto;
+            width: 50%;
+        }
+    </style>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+    <script>
+    $(document).ready(function(){
+        $("img").css("opacity", 0.5)
+
+        main_width = $("#main").css("width");
+        console.log(main_width)
+
+        new_width = parseInt(main_width) * 2
+        $("#main").css("width", new_width + "px")
+        console.log(new_width)
+
+        $("input").blur(function(e) {
+            input_value = $(this).val()
+            alert("The value you entered is " + input_value)
+        })
+    })</script>
+</head>
+<body>
+    <h1>Marconi Flower Shop</h1>
+    <form action="" method="post">
+        <div id="main">
+            <div class="dtable">
+                <div class="drow">
+                    <div class="dcell">
+                        <!--
+                            /nscc/images/flower1.webp goes to htdocs, nscc folder, images folder
+                        -->
+                        <img src="/nscc/images/flower1.jpg" alt="">
+                        <label for="flower1">Flower 1</label>
+                        <input type="text" name="flower1" value="0" required>
+                    </div>
+                    <div class="dcell">
+                        <img src="/nscc/images/flower2.jpg" alt="">
+                        <label for="flower2">Flower 2</label>
+                        <input type="text" name="flower2" value="0" required>
+                    </div>
+                    <div class="dcell">
+                        <img src="/nscc/images/flower3.jpeg" alt="">
+                        <label for="flower3">Flower 3</label>
+                        <input type="text" name="flower3" value="0" required>
+                    </div>
+                </div>
+                <div class="drow">
+                    <div class="dcell">
+                        <img src="/nscc/images/flower4.jpg" alt="">
+                        <label for="flower4">Flower 4</label>
+                        <input type="text" name="flower4" value="0" required>
+                    </div>
+                    <div class="dcell">
+                        <img src="/nscc/images/flower5.jpg" alt="">
+                        <label for="flower5">Flower 5</label>
+                        <input type="text" name="flower5" value="0" required>
+                    </div>
+                    <div class="dcell">
+                        <img src="/nscc/images/flower6.jpg" alt="">
+                        <label for="flower6">Flower 6</label>
+                        <input type="text" name="flower6" value="0" required>
+                    </div>
+                </div>                
+            </div>
+        </div>
+    </form>
+</body>
+</html>
