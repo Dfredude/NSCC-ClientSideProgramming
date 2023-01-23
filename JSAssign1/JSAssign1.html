@@ -2,13 +2,13 @@
 
 You will need to modify the HTML document as follows:
 
-1) Properly import jQuery into the main HTML document
+✅ 1) Properly import jQuery into the main HTML document
 
-2) Write and call a javascript function to make an alert box pop-up after the page loads saying "Thanks for visiting"
+✅ 2) Write and call a javascript function to make an alert box pop-up after the page loads saying "Thanks for visiting"
 
-3) Write a javascript function called showDiv() that will show the div labeled myBlock. Add a link to "(+)" and add the required javascript to call the showDiv function
+✅ 3) Write a javascript function called showDiv() that will show the div labeled myBlock. Add a link to "(+)" and add the required javascript to call the showDiv function ✅
 
-4) Write a javascript function called hideDiv() which will hide the div labeled myBlock. Add a link to "(-)" and add the required javascript to call the hideDiv function
+✅ 4) Write a javascript function called hideDiv() which will hide the div labeled myBlock. Add a link to "(-)" and add the required javascript to call the hideDiv function
 
 5) Write a javascript function called changeTextColor() which change the color of text in every second paragraph to red. Add a link to “make text red” and add the required javascript to call the changeTextColor function.
 
@@ -21,6 +21,32 @@ You will need to modify the HTML document as follows:
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 	<title>JS Assignment#1</title>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+	<script type="text/javascript">
+		$(document).ready(function(){
+			alert("Thanks for visiting")
+			showDiv()
+			hideDiv()
+			const showClicker = $("#plus-sign")
+			const hideClicker = $("#minus-sign")
+			showClicker.click(showDiv)
+			hideClicker.click(hideDiv)
+		})
+
+
+		function showDiv(){
+			const myBlock = $("#myBlock>p")
+			myBlock.css("color", "black")
+			return false
+		}
+
+		function hideDiv(){
+			const myBlock = $("#myBlock>p")
+			myBlock.css("color", "white")
+			return false
+		}
+
+	</script>
     <style>
     #myBlock {
     	display:block;
@@ -86,7 +112,7 @@ against the threat of British invasion during the turbulent time of empire-build
 being destroyed in the 1760s. The site lay untouched until well into modern times, when archaeologists began to reconstruct the 
 fortress as it was in the 18th century.</P></div>
 
-(+) &nbsp;&nbsp;&nbsp;&nbsp; (-)
+<a id="plus-sign" style="display: inline;" href="">(+)</a>&nbsp;&nbsp;&nbsp;&nbsp; <a id="minus-sign" href="" style="display: inline;">(-)</a> 
 
 <P>Thanks to their efforts and the work of Parks Canada and the Fortress Louisbourg Association, you can now experience life in 
 Louisbourg during its heyday. There are more than a dozen buildings open to the public including three authentic working 18th 
