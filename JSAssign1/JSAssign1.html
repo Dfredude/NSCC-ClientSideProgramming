@@ -10,11 +10,11 @@ You will need to modify the HTML document as follows:
 
 ✅ 4) Write a javascript function called hideDiv() which will hide the div labeled myBlock. Add a link to "(-)" and add the required javascript to call the hideDiv function
 
-5) Write a javascript function called changeTextColor() which change the color of text in every second paragraph to red. Add a link to “make text red” and add the required javascript to call the changeTextColor function.
+✅ 5) Write a javascript function called changeTextColor() which change the color of text in every second paragraph to red. Add a link to “make text red” and add the required javascript to call the changeTextColor function.
 
-6) Write a single javascript function that will move the ball by 50px in the top, left, right, and bottom directions if those buttons are pressed. Diagonal direction arrows will require the position to change by 25px vertically AND 25px horizontally in the indicated direction.
+✅ 6) Write a single javascript function that will move the ball by 50px in the top, left, right, and bottom directions if those buttons are pressed. Diagonal direction arrows will require the position to change by 25px vertically AND 25px horizontally in the indicated direction.
 
-7) Use jquery to append <H2>Plan a Visit</H2> AFTER the H1 element when the page loads -->
+✅ 7) Use jquery to append <H2>Plan a Visit</H2> AFTER the H1 element when the page loads -->
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -24,15 +24,13 @@ You will need to modify the HTML document as follows:
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
 	<script type="text/javascript">
 		$(document).ready(function(){
-			alert("Thanks for visiting")
-			showDiv()
-			hideDiv()
+			// alert("Thanks for visiting")
 			const showClicker = $("#plus-sign")
 			const hideClicker = $("#minus-sign")
 			showClicker.click(showDiv)
 			hideClicker.click(hideDiv)
+			appendH2()
 		})
-
 
 		function showDiv(){
 			const myBlock = $("#myBlock>p")
@@ -46,8 +44,81 @@ You will need to modify the HTML document as follows:
 			return false
 		}
 
+
+		function changeTextColor(){
+			const paragraphs = $("*>p:nth-of-type(odd)")
+			paragraphs.css("color", "red")
+			return false
+		}
+
+		function appendH2(params) {
+			const h1 = $("h1")
+			const h2 = $('<H2>Plan a Visit</H2>');
+			h2.insertAfter(h1)
+		}
+
+		function move(direction){
+			const ball = $("#cannonball")	
+			const current_top = parseInt(ball.css("top")) 
+			const current_left = parseInt(ball.css("left"))
+			switch (direction) {
+				case "up-left":
+					ball.animate({
+						"top": `${current_top-25}px`,
+						"left": `${current_left-25}px`
+					})
+					break;
+				case "up":
+					ball.animate({
+						"top": `${current_top-50}px`
+					})
+					break;
+				case "up-right":
+					ball.animate({
+						"top": `${current_top-25}px`,
+						"left": `${current_left+25}px`
+					})
+					break;
+				case "down":
+					ball.animate({
+						"top": `${current_top+50}px`
+					})
+					break;
+
+				case "down-right":
+					ball.animate({
+						"top": `${current_top+25}`,
+						"left": `${current_left+25}`
+					})
+					break;
+				case "down-left":
+					ball.animate({
+						"top": `${current_top+25}`,
+						"left": `${current_left-25}`
+					})
+					break
+				case "left":
+					ball.animate({
+						"left" : `${current_left-50}px`
+					})
+					break;
+				case "right":
+					ball.animate({
+						"left" : `${current_left+50}px`
+					})
+					break;
+				default:
+					ball.animate({
+						"left": "300px",
+						"top": "500px"
+					})
+					break;
+			}
+		}
+
 	</script>
     <style>
+
     #myBlock {
     	display:block;
     }
@@ -128,21 +199,21 @@ King’s Bakery  You can even purchase 18th century replica gifts and Fortress m
 <P>From the museum exhibits in the Visitor’s Center to tours of the restored Fortress, there’s bound to be something to pique the interest of everyone regardless of their age. You can take a guided tour, experience the majesty of the Fortress by candlelight, or simply explore the town on your own and talk to its inhabitants about their lives.</P>
 
 <P>In addition to tours, we also offer a number of special visitor experiences. You can take part in a captivating entertainment experience with Louisbourg Live, sample a delightful palate of 18th century-inspired wines,  have a delicious treat at the Widow Grandchamps’ Salon de Chocolat, or be entertained by 18th century dinner theatre.</P>
-
-make text red<br />
+<a href="" onclick="changeTextColor(); return false">make text red</a>
+<br />
 
 <img src="cannonball.jpg" id="cannonball" />
 
 <div id="myArrows">
-	<div id="ularrow"><a id="aUpLeft"><img id="iUpLeft" src="ularrow.jpg" /></a></div>
-	<div id="uarrow"><a id="aUp"><img id="iUp" src="uarrow.jpg" /></a></div>
-	<div id="urarrow"><a id="aUpperRight"><img id="iUpperRight" src="urarrow.jpg" /></a></div>
-	<div id="larrow"><a id="aLeft"><img id="iLeft" src="larrow.jpg" /></a></div>
-	<div id="marrow"> &nbsp; </div>
-	<div id="rarrow"><a id="aRight"><img id="iRight" src="rarrow.jpg" /></a></div>
-	<div id="dlarrow"><a id="aDownLeft"><img id="iDownLeft" src="dlarrow.jpg" /></a></div>
-	<div id="darrow"><a id="aDown"><img id="iDown" src="darrow.jpg" /></a></div>
-	<div id="drarrow"><a id="aDownRight"><img id="iDownRight" src="drarrow.jpg" /></a></div>
+	<div id="ularrow"><a id="aUpLeft" onclick="move('up-left')"><img id="iUpLeft" src="ularrow.jpg" /></a></div>
+	<div id="uarrow"><a id="aUp" onclick="move('up')"><img id="iUp" src="uarrow.jpg" /></a></div>
+	<div id="urarrow"><a id="aUpperRight" onclick="move('up-right')"><img id="iUpperRight" src="urarrow.jpg" /></a></div>
+	<div id="larrow"><a id="aLeft" onclick="move('left')"><img id="iLeft" src="larrow.jpg" /></a></div>
+	<div id="marrow" onclick="move()"> &nbsp; </div>
+	<div id="rarrow"><a id="aRight" onclick="move('right')"><img id="iRight" src="rarrow.jpg" /></a></div>
+	<div id="dlarrow"><a id="aDownLeft" onclick="move('down-left')"><img id="iDownLeft" src="dlarrow.jpg" /></a></div>
+	<div id="darrow"><a id="aDown" onclick="move('down')"><img id="iDown" src="darrow.jpg" /></a></div>
+	<div id="drarrow"><a id="aDownRight" onclick="move('down-right')"><img id="iDownRight" src="drarrow.jpg" /></a></div>
 </div>
 
 </body>
