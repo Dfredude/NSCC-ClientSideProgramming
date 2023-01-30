@@ -33,7 +33,7 @@ You will need to modify the HTML document as follows:
 		})
 
 		function showDiv(){
-			const myBlock = $("#myBlock>p")
+			const myBlock = $("#myBlock>p")			
 			myBlock.show()
 			return false
 		}
@@ -48,7 +48,6 @@ You will need to modify the HTML document as follows:
 		function changeTextColor(){
 			const paragraphs = $("*>p:nth-of-type(odd)")
 			paragraphs.css("color", "red")
-			return false
 		}
 
 		function appendH2(params) {
@@ -199,21 +198,21 @@ King’s Bakery  You can even purchase 18th century replica gifts and Fortress m
 <P>From the museum exhibits in the Visitor’s Center to tours of the restored Fortress, there’s bound to be something to pique the interest of everyone regardless of their age. You can take a guided tour, experience the majesty of the Fortress by candlelight, or simply explore the town on your own and talk to its inhabitants about their lives.</P>
 
 <P>In addition to tours, we also offer a number of special visitor experiences. You can take part in a captivating entertainment experience with Louisbourg Live, sample a delightful palate of 18th century-inspired wines,  have a delicious treat at the Widow Grandchamps’ Salon de Chocolat, or be entertained by 18th century dinner theatre.</P>
-<a href="" onclick="changeTextColor(); return false">make text red</a>
+<a href="javascript:changeTextColor();" onclick="return false;">make text red</a>
 <br />
 
 <img src="cannonball.jpg" id="cannonball" />
 
 <div id="myArrows">
-	<div id="ularrow"><a id="aUpLeft" onclick="move('up-left')"><img id="iUpLeft" src="ularrow.jpg" /></a></div>
-	<div id="uarrow"><a id="aUp" onclick="move('up')"><img id="iUp" src="uarrow.jpg" /></a></div>
-	<div id="urarrow"><a id="aUpperRight" onclick="move('up-right')"><img id="iUpperRight" src="urarrow.jpg" /></a></div>
-	<div id="larrow"><a id="aLeft" onclick="move('left')"><img id="iLeft" src="larrow.jpg" /></a></div>
-	<div id="marrow" onclick="move()"> &nbsp; </div>
-	<div id="rarrow"><a id="aRight" onclick="move('right')"><img id="iRight" src="rarrow.jpg" /></a></div>
-	<div id="dlarrow"><a id="aDownLeft" onclick="move('down-left')"><img id="iDownLeft" src="dlarrow.jpg" /></a></div>
-	<div id="darrow"><a id="aDown" onclick="move('down')"><img id="iDown" src="darrow.jpg" /></a></div>
-	<div id="drarrow"><a id="aDownRight" onclick="move('down-right')"><img id="iDownRight" src="drarrow.jpg" /></a></div>
+	<div id="ularrow"><a id="aUpLeft" href="javascript:move('up-left')"><img id="iUpLeft" src="ularrow.jpg" /></a></div>
+	<div id="uarrow"><a id="aUp" href="javascript:move('up')"><img id="iUp" src="uarrow.jpg" /></a></div>
+	<div id="urarrow"><a id="aUpperRight" href="javascript:move('up-right')"><img id="iUpperRight" src="urarrow.jpg" /></a></div>
+	<div id="larrow"><a id="aLeft" href="javascript:move('left')"><img id="iLeft" src="larrow.jpg" /></a></div>
+	<div id="marrow" href="javascript:move()"> &nbsp; </div>
+	<div id="rarrow"><a id="aRight" href="javascript:move('right')"><img id="iRight" src="rarrow.jpg" /></a></div>
+	<div id="dlarrow"><a id="aDownLeft" href="javascript:move('down-left')"><img id="iDownLeft" src="dlarrow.jpg" /></a></div>
+	<div id="darrow"><a id="aDown" href="javascript:move('down')"><img id="iDown" src="darrow.jpg" /></a></div>
+	<div id="drarrow"><a id="aDownRight" href="javascript:move('down-right')"><img id="iDownRight" src="drarrow.jpg" /></a></div>
 </div>
 
 </body>
