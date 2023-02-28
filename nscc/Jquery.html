@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script> -->
+    <script text="text/javascript">
+        var newobject1 = new Object();
+        newobject1.name = "Kanishk";
+        function displayMod(){
+            alert(newobject1.name);
+        }
+
+        var object2 = {
+            firstname: "K",
+            lastname: "D",
+            getperson: function(){
+                alert("hello" + this.firstname + this.lastname);
+            }
+        }
+
+        function displayMyData(){
+            
+            object2.firstname = "KK";
+            object2.getperson();
+        }
+    </script>
+    
+    
+
+
+</head>
+<body>
+    <div id = "tbl">
+        <h1>tbl</h1>
+        <div class = "r1">
+            <div>sdasd</div>
+            <div>asdas</div>
+        </div>
+        <div class = "r2">
+            <div>asd</div>
+            <div>asdas</div>
+        </div>
+    </div>
+    <a href="" onclick="javascript:displayMyData();return false;">CLick me</a>
+
+    <!-- $("#form1") <= if you need to access this element -->
+    <!-- var form1 = documetn.getElementById('form1'); -->
+    <form id="form1" name="form1" method ="" action = "">
+        <label for = "field1">Field 1: </label>
+        <input type = "text" name = "field1" id ="field1" value ="" alt ="" placeholder="Please enter Value" required />
+        <input type ="submit" name ="submit" id="submit" value="Submit" />
+    <br />
+    <label for = "field2">field 2</label>
+    <select name = "field2" id ="field2">
+        <option value ="1">one </option>
+        <option value ="2">Two </option>
+        <option value ="3">Three </option>
+    </select>
+    </form>
+</body>
+
+<script>
+    // $(document).ready(function()
+    // {
+    // })
+
+</script>
+
+</html>

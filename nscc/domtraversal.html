@@ -1,0 +1,72 @@
+<!-- dom traversal -->
+
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>Dom traversal</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="">
+        <style>
+            div{
+                margin: 10px;
+            }
+        </style>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+        <script type="text/javascript">
+
+            $(document).ready(function(){
+
+
+                // $(".grade").focus(function(){});// click in 
+                // $(".grade").blur(function(){});//click outside
+                $(".grade").on({
+                    focus:function(){
+                        alert("focus grabbed");
+                    },
+                    blur:function(){
+                        alert("focus lost");
+                    }
+                });
+            }
+
+            );
+
+
+
+            //lets get id and course of th eprevious nods
+            var pID = $(this).parent().prev().children(":first").val();
+            var cID = $(this).parent().prev().children(":first").netx().next().val();
+            console.log("pID: " + pID + ", cid:" + cID);
+        </script>
+    </head>
+    <body>
+        <h1>My form</h1>
+        <form>
+            <div class="student">Darren
+                <input type="hidden" name = "id" value = "1" class="id" />
+                <input type="text" name = "grade" value = "" class="grade" />
+                <input type="hidden" name = "course" value = "PROG1700" class="course" />
+            </div>
+            <div class="student">Kanishk
+                <input type="hidden" name = "id" value = "2" class="id" />
+                <input type="text" name = "grade" value = "" class="grade" />
+                <input type="hidden" name = "course" value = "PROG2700" class="course" />
+            </div>
+            <div class="student">you
+                <input type="hidden" name = "id" value = "3" class="id" />
+                <input type="text" name = "grade" value = "" class="grade" />
+                <input type="hidden" name = "course" value = "PROG1400" class="course" />
+            </div>
+            <div class="student">we
+                <input type="hidden" name = "id" value = "4" class="id" />
+                <input type="text" name = "grade" value = "" class="grade" />
+                <input type="hidden" name = "course" value = "PROG2400" class="course" />
+            </div>
+
+        </form>
+        <script src="" async defer></script>
+    </body>
+</html>

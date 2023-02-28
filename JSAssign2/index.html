@@ -1,0 +1,139 @@
+<!-- 
+Using the in-class Ajax or Axios example as a guide, 
+create a registration form that has the usual fields when signing up for a web service 
+
+(title as dropdown, 
+first and last names, 
+street address, 
+optional address 2 
+and address 3), 
+province/state dropdown, 
+country dropdown, 
+email and 
+2 password boxes. 
+
+All fields are required except address 2 and address 3. 
+Passwords should be minimum of length of 6 and both password boxes should match. 
+Email needs to verify that it is properly formatted. 
+Select boxes should have empty entry to start. 
+An error-free entry should be submitted to a script.
+
+NOTE 1: A PHP script may be used on the server side (use the in-class send.php script as a guide).
+
+NOTE 2: You CANNOT use 'required' in your form field to satisfy the required requirement above. You MUST USE Javascript to retrieve the value of your field and determine if it is empty.
+
+NOTE 3: For the other criteria (password length, password equality, email formatting), you MUST USE Javascript to determine whether the criteria is met (i.e. no changing the html form type to email or using pattern/regex within your html field).
+
+NOTE 4: You MUST NAME the fields after the value you are retrieving (DO NOT USE field1, field2, etc as the field name as done in the in-class example) -->
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.3.slim.min.js" integrity="sha256-ZwqZIVdD3iXNyGHbSYdsmWP//UBokj2FHAxKuSBKDSo=" crossorigin="anonymous"></script>
+    <script src="./index.js"></script>
+    <style>
+        label {
+            display: inline-block;
+            width: 150px;
+        }
+        input {
+            display: inline-block;
+            width: 200px;
+        }
+        select {
+            display: inline-block;
+            width: 200px;
+        }
+        #alert-container {
+            color: white;
+            font-size: larger;
+            margin: 40px auto 0px;
+            text-align: center;
+            width: 250px;
+            background-color: red;
+        }
+    </style>
+</head>
+<body>
+    <form id="registration-form" method="post" action="javascript:sendRequest();">
+        <label for="title">Title:</label>
+        <select id="title" name="title">
+          <option value="">-- Select One --</option>
+          <option value="mr">Mr.</option>
+          <option value="ms">Ms.</option>
+          <option value="mrs">Mrs.</option>
+        </select>
+        <br>
+        
+        <label for="first-name">First Name:</label>
+        <input type="text" id="first-name" name="first-name">
+        <br>
+        
+        <label for="last-name">Last Name:</label>
+        <input type="text" id="last-name" name="last-name">
+        <br>
+        
+        <label for="street-address">Street Address:</label>
+        <input type="text" id="street-address" name="street-address">
+        <br>
+        
+        <label for="address2">Address 2:</label>
+        <input type="text" id="address2" name="address2">
+        <br>
+        
+        <label for="address3">Address 3:</label>
+        <input type="text" id="address3" name="address3">
+        <br>
+        
+        <label for="province-state">Province/State:</label>
+        <select id="province-state" name="province-state">
+          <option value="">-- Select One --Ontario</option>
+          <option value="quebec">Quebec</option>
+          <option value="nova scotia">Nova Scotia</option>
+          <option value="newfoundland and labrador">Newfoundland and Labrador</option>
+          <option value="prince edward island">Prince Edward Island</option>
+          <option value="new brunswick">New Brunswick</option>
+          <option value="manitoba">Manitoba</option>
+          <option value="saskatchewan">Saskatchewan</option>
+          <option value="alberta">Alberta</option>
+          <option value="british columbia">British Columbia</option>
+          <option value="northwest territories">Northwest Territories</option>
+          <option value="yukon">Yukon</option>
+          <option value="nunavut">Nunavut</option>
+        </select>
+        <label for="country">Country:</label>
+
+        <select id="country" name="country">
+            <option value="" selected disabled>Select Country</option>
+            <option value="Canada">Canada</option>
+            <option value="USA">USA</option>
+            <option value="Mexico">Mexico</option>
+            <option value="UK">UK</option>
+            <option value="France">France</option>
+            <option value="Germany">Germany</option>
+            <option value="Spain">Spain</option>
+            <option value="Japan">Japan</option>
+            <option value="China">China</option>
+            <option value="India">India</option>
+            <option value="Brazil">Brazil</option>
+            <option value="Australia">Australia</option>
+        </select>
+
+        <label for="email">Email:</label>
+        <input id="email" name="email">
+
+        <label for="password1">Password:</label>
+        <input type="password" id="password1" name="password1">
+
+        <label for="password2">Confirm Password:</label>
+        <input type="password" id="password2" name="password2">
+
+        <input type="submit" value="Register">
+
+        <div id="alert-container"></div>
+    </form>
+</body>
+</html>

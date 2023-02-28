@@ -1,0 +1,292 @@
+<!--
+    These scripts show you how to interact with form elements 
+    on the page as users interact with it. We will do some error 
+    checking, error messaging, and form submission to a server 
+    side script WITHOUT leaving the current page or refreshing 
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script type="text/javascript">
+        function getFormData() {
+            //get values from variables
+            var field1 = $("#field1").val();
+            var field2 = $("#field2").val();
+            var field3 = $("#field3").val();
+            var field4 = $("#field4").val();
+            //var field5 = $("#field5").val();
+            var field5 = $("#field5").is(':checked');
+            var field6 = $("#field6").val();
+
+            /*
+            var fields = "field1: " + field1 + " field2: "+ field2;
+            fields += " field3: " + field3;
+            fields += " field4: " + field4;
+            fields += " field5: " + field5;
+            fields += " field6: " + field6;
+            console.log(fields);
+            */
+
+            //define a flag to track errors (code system)
+            errors = 0;
+
+            //if statements to check whether the field should be flagged
+            if ( field1 == "" ) {
+                errors = 1;
+                $("#field1Error").addClass('spanError');
+            } else {
+                $("#field1Error").removeClass('spanError');
+            }
+
+            if ( field2 == "" ) {
+                errors = 2;
+                $("#field2Error").addClass('spanError');
+            } else {
+                $("#field2Error").removeClass('spanError');
+            }
+
+            if ( field3 == "" ) {
+                errors = 3;
+                $("#field3Error").addClass('spanError');
+            } else {
+                $("#field3Error").removeClass('spanError');
+            }
+
+            if ( field4 == "" ) {
+                errors = 4;
+                $("#field4Error").addClass('spanError');
+            } else {
+                $("#field4Error").removeClass('spanError');
+            }
+
+            if ( field6 == "" ) {
+                errors = 6;
+                $("#field6Error").addClass('spanError');
+            } else {
+                $("#field6Error").removeClass('spanError');
+            }
+
+            if (errors != 0) {
+                //show errors
+                //insert error div
+                $("body > div.errorDiv").remove();
+                $("body").prepend("<div class='errorDiv'>you have errors</div>");
+                //log to console
+                console.log("last error: " + errors);
+            } else {
+                //remove error div
+                $("body > div.errorDiv").remove();
+
+                //send data to server via fetch
+                const url = './send2.php';
+
+                //collect the data to send
+                const formData = new FormData();
+                formData.set('field1', field1);
+                formData.set('field2', field2);
+                formData.set('field3', field3);
+                formData.set('field4', field4);
+                formData.set('field5', field5);
+                formData.set('field6', field6);
+                
+                let fetchData = {
+                    method: 'post',
+                    body: formData
+                }
+
+                // fetch(url, fetchData)
+                // .then(response => response.json())
+
+                axios({
+                    method: 'post',
+                    url: './send2.php',
+                    data: formData
+                })
+                
+                .then(response => {
+                    //handle the response we got from
+                    //decoding the data
+                    console.log("field1: " + response.data.field1);
+                    console.log("field2: " + response.data.field2);
+                    console.log("field3: " + response.data.field3);
+                    console.log("field4: " + response.data.field4);
+                    console.log("field5: " + response.data.field5);
+                    console.log("field6: " + response.data.field6);
+                    console.log('decoded response: ' + response);
+            
+                    
+                    /* 
+                    to revisit..
+                    ersponse.data.allvalue.forEach(element = > {console.log()})
+                    
+                    */
+                    
+                    //convert JSON encoded array (object) to an array
+                    var all_values_array = Object.keys(reponse.data.all_values).map(
+                        function(key){
+                            return [reponse.data.all_values[key]];
+                        });
+                        console.log(all_values_array);
+                    
+
+                        all_values_array.froEach((key, index) => {console.log("all_values_array[" + index +"]: " + all_values_array[index]);});
+                    // for (condt key in reponse.data.all_values) {
+                    //     console.log(Array[]);
+                    // }
+
+                    //loop through each element  and replace current
+                    //select option values with the data retrieved
+
+                    //remove all option EXCEPT the first one
+
+                    $("#field4 option:gt(0)").remove();
+
+                    $.each(response.data.all_values, (key, value) => {
+                        $("#field4").append("<option value= '"+ key +"'>"+value+"</option>");
+                    })
+                    
+                    //clear fields
+                    $('#field1').val(''); 
+                    $('#field2').val(''); 
+                    $('#field3').val(''); 
+                    $('#field4').val('');
+                    $('#field5').prop('checked', false);
+                    $('#field6').val('');
+                    $('#submit').css('display', 'none');
+                    $('#check-warning').css('display','block');
+
+                    $("body").prepend("<div class='successDiv'>Form successfully submitted</div>");
+
+                    setTimeout(function() {
+                        $("body > div.successDiv").remove();
+                    }, 3000);
+
+                })
+                .catch(e => {
+                    console.log(e);
+                });
+
+                /*
+                fetch(url, fetchData)
+                .then( response = function(response) {
+                        response.json();
+                } )
+                .then(response = function(response) {
+                    //handle the response we got from
+                    //decoding the data
+                     
+                })
+                .catch(e = function(e) {
+                    console.log(e);
+                });
+
+                */
+
+            }
+
+        }
+
+        $(document).ready(function(){
+            $("#field5").click(function(e){
+                if ( $(this).is(':checked') ) {
+                    $("#check-warning").css('display', 'none');
+                    $("#submit").css("display", 'block');
+                } else {
+                    $("#check-warning").css('display', 'block');
+                    $("#submit").css("display", 'none');
+                }
+            });
+        });
+    </script>
+    <style>
+        #field1Error, #field2Error, #field3Error, #field4Error,
+        #field6Error, #submit {
+            display: none;
+        }
+        .spanError {
+            color:red;
+            font-weight: 700;
+            display: inline-block !important;
+        }
+        .errorDiv{
+            color:white;
+            font-weight: 700;
+            background-color: red;
+            margin-top: 10px;
+            margin-bottom:20px;
+            width:100%;
+            text-align: center;
+            padding:10px;
+        }
+        .successDiv{
+            color:white;
+            font-weight: 700;
+            background-color: green;
+            margin-top: 10px;
+            margin-bottom:20px;
+            width:100%;
+            text-align: center;
+            padding:10px;
+        }
+    </style>
+</head>
+<body>
+    <div></div>
+    <!--
+        $("#form1") <= if you need to access this element jQuery
+        var form1 = document.getElementById('form1');
+
+        action => where the page goes/what it does when it submits
+               => send.php => send all form data to php script 
+               => javascript function
+
+        method => how your data is sent. hidden or through address bar
+                  hidden => POST, address bar => GET
+    -->
+    <form id="form1" name="form1" method="post" action="javascript:getFormData();">
+        <label for="field1">Field 1:</label>
+        <input type="text" name="field1" id="field1" value="" alt="" placeholder="Please enter value" />
+        <span id="field1Error" class="errors">*required</span>
+        <br />
+        <label for="field2">Field 2:</label>
+        <input type="text" name="field2" id="field2" value="" alt="" placeholder="Please enter value" />
+        <span id="field2Error" class="errors">*required</span>
+        <br />
+        <label for="field3">Field 3:</label>
+        <input type="text" name="field3" id="field3" value="" alt="" placeholder="Please enter value" />
+        <span id="field3Error" class="errors">*required</span>
+        <br />
+
+        <label for="field4">Field4:</label>
+        <select name="field4" id="field4">
+            <option value="">Please choose...</option>
+            <option value="1">One</option>
+            <option value="2">Two</option>
+            <option value="3">Three</option>
+        </select>
+        <span id="field4Error" class="errors">*required</span>
+        <br />
+
+        <label for="field5">Field 5:</label>
+        <input type="checkbox" name="field5" id="field5" value="1" />
+        <br />
+
+        <label for="field6">Field 6:</label>
+        <span id="field6Error" class="errors">*required</span>
+        <br>
+        <textarea name="field6" id="field6" rows="5" cols="45"></textarea>
+        <br />
+
+        <input type="submit" name="submit" id="submit" value="Submit" />
+        <span id="check-warning">
+            checkbox must be checked to submit form
+        </span>
+    </form>
+</body>
+</html>

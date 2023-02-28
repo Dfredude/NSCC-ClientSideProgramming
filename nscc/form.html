@@ -1,0 +1,218 @@
+<!--
+    These scripts show you how to interact with form elements on the page as users interact with the page. We will do error checking, error messaging, and form submission to a service side script without leaving the current page or refreshing.
+-->
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"/></script>
+    
+    <script type="text/javascript">
+      function getFormData() {
+        //get values from variables
+        var field1 = $("#field1").val();
+        var field2 = $("#field2").val();
+        var field3 = $("#field3").val();
+        var field4 = $("#field4").val();
+        // var field5 = $("#field5").val();
+        var field5 = $("#field5").is(':checked');
+        var field6 = $("#field6").val();
+
+        // var fields = " field1: " + field1 + " field2: " + field2;
+        // fields += " field3: " + field3;
+        // fields += " field4: " + field4;
+        // fields += " field5: " + field5;
+        // fields += " field6: " + field6;
+        // console.log(fields); 
+
+        // define a flag to track errors (code system)
+
+        errors = 0;
+
+        if (field1 == "") {
+            errors = 1;
+            $("#field1Error").css('display', 'inline-block');
+          } else {
+            $("#field1Error").css('display', 'none');
+          }
+          if (field2 == "") {
+            errors = 1;
+            $("#field2Error").css('display', 'inline-block');
+          } else {
+            $("#field2Error").css('display', 'none');
+          }
+          if (field3 == "") {
+            errors = 1;
+            $("#field3Error").css('display', 'inline-block');
+          } else {
+            $("#field3Error").css('display', 'none');
+          }
+          if (field4 == "") {
+            errors = 1;
+            $("#field4Error").css('display', 'inline-block');
+          } else {
+            $("#field4Error").css('display', 'none');
+          }
+          if (field6 == "") {
+            errors = 1;
+            $("#field6Error").css('display', 'inline-block');
+          } else {
+            $("#field6Error").css('display', 'none');
+          }
+
+
+        if (errors != 0) {
+          //show errors
+          //insert error div
+          // $("body > div.errorDiv").remove();
+          $("body").prepend("<div class='errorDiv'>you have errors</div>");
+          //log to console
+          console.log("last error: " + errors);
+        } else {
+          //remove error div
+          $("body > div.errorDiv").remove();
+          //send data to server
+          
+          //create a query string of values to be sent to the 
+          //destinatin url
+          ///send.php
+          var dataForServer = "field1=" + field1 + "&field2=" + field2 +
+                              "&field3=" + field3 + "&field4=" + field4 +
+                              "&field5=" + field5 + "&field6=" + field6;
+          console.log(dataForServer);
+          $.ajax({
+            type:"post",
+            url: "./send.php",
+            data: dataForServer,
+            success: function(response){
+              if (response != ""){
+                console.log(response);
+                //clear fields
+                $("#field1").val("");
+                $("#field2").val("");
+                $("#field3").val("");
+                $("#field4").val("");
+                $("#field5").prop("checked", false);
+                $("#field6").val("");
+                $('submit').css('display', 'none');
+                $("#check-warning").css('display', 'block');
+                $("body").prepend("<div class ='successDiv'> form submitted</div>");
+
+                setTimeout(function(){
+                  $("body > div.successDiv").remove();
+                },3000);
+              }
+            }
+          });
+          
+          
+        } 
+
+      }
+
+      $(document).ready(function(){
+      $("#field5").click(function(e){
+        if ($(this).is(":checked")){
+            
+          $("#checked-warning").css('display','none');
+          $("#submit").css("display", "block");
+
+          }
+          else{
+            $("#checked-warning").css('display','block');
+          $("#submit").css("display", "none");
+          }
+          
+                })
+      })
+    </script>
+    <style>
+      #field1Error,#field2Error,#field3Error, #field4Error, #field6Error, #submit {
+        color: red;
+        font-weight: 700;
+        display: none;
+      }
+
+      .errorDiv {
+        color: white;
+        background-color: red;
+        font-weight: 700;
+        margin-top: 10px;
+        margin-bottom: 20px;
+        width: 100%;
+        text-align: center;
+        padding: 10px;
+      }
+      .successDiv {
+        color: white;
+        background-color: greenyellow;
+        font-weight: 700;
+        margin-top: 10px;
+        margin-bottom: 20px;
+        width: 100%;
+        text-align: center;
+        padding: 10px;
+      }
+    </style>
+
+  </head>
+  <body>
+    <div>test div</div>
+    <!--
+        $("#form1") <= if you need to access this element jQuery var form1 = document.getElementById('form1');
+
+        action  => where the page goes/what it does when it submits
+                => send.php => send all form data to php script.
+                => javascript function
+        
+        method => how your data is sent, hidden, or through address bar
+            hidden =>POST, address bar => GET
+    -->
+
+    <form id="form" name="form1" method="post" action="javascript:getFormData();">
+
+      <label for="field1"> Field 1: </label>
+      <input type="text" name="field1" id="field1" value="" alt="" placeholder="Please Enter Value" />
+      <span id="field1Error" class="errors">*field 1 is required</span>
+      <br />
+
+      <label for="field2"> Field 2: </label>
+      <input type="text" name="field2" id="field2" value="" alt="" placeholder="Please Enter Value" />
+      <span id="field2Error" class="errors">*field 2 is a required field</span>
+      <br />
+
+      <label for="field3"> Field 3: </label>
+      <input type="text" name="field3" id="field3" value="" alt="" placeholder="Please Enter Value" />
+      <span id="field3Error" class="errors">*enter information for field 3</span>
+      <br />
+
+      <label for="field4">Field 4: </label>
+      <select name="field4" id="field4">
+        <option value="">Please Choose ...</option>
+        <option value="1">One</option>
+        <option value="2">Two</option> 
+        <option value="3">Three</option>  
+      </select>
+      <span id="field4Error" class="errors">*pick one of the options for field 4</span>
+      <br />
+
+      <label for="field5">Field 5: </label>
+      <input type="checkbox" name="field5" id="field5" value="1" />
+      <span id="field5Error" class="errors">*required</span>
+      <br />
+
+      <label for="field6">Field 6: </label>      
+      <span id="field6Error" class="errors">*enter some text in the field for field 6</span>
+      <br>
+      <textarea name="field6" id="field6" cols="45" rows="5"></textarea>
+
+      <input type="submit" name="submit" id="submit" value="Submit" />
+      <br />
+      <span id = "check-warning">Checkbox must be checked to submit</span>
+    </form>
+  </body>
+</html>

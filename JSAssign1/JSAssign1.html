@@ -24,13 +24,21 @@ You will need to modify the HTML document as follows:
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
 	<script type="text/javascript">
 		$(document).ready(function(){
-			// alert("Thanks for visiting")
+			alert("Thanks for visiting")
 			const showClicker = $("#plus-sign")
 			const hideClicker = $("#minus-sign")
 			showClicker.click(showDiv)
 			hideClicker.click(hideDiv)
 			appendH2()
+
+			$("#myArrows>*").click(function(e){
+				moveBall(e.currentTarget)
+			})
 		})
+
+		function moveBall(target){
+			console.log(target.id);
+		}
 
 		function showDiv(){
 			const myBlock = $("#myBlock>p")			
@@ -50,7 +58,7 @@ You will need to modify the HTML document as follows:
 			paragraphs.css("color", "red")
 		}
 
-		function appendH2(params) {
+		function appendH2() {
 			const h1 = $("h1")
 			const h2 = $('<H2>Plan a Visit</H2>');
 			h2.insertAfter(h1)
@@ -114,6 +122,8 @@ You will need to modify the HTML document as follows:
 					break;
 			}
 		}
+
+
 
 	</script>
     <style>
